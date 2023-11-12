@@ -12,7 +12,7 @@ In this notebook. I merged quote and trades, and found out spikes inside the tra
 Also checked the time diff of quote&trade updates, to check if any missing data.
 
 -  First Look
-![first look](plots/first look.png)
+![first look](plots/first_look.png)
 - Time diff to check missing data
 ![quote_time_gap.png](plots/quote_time_gap.png)
 - Problem: wrong bbo price when trade price spike
