@@ -34,32 +34,43 @@ df.hplot(
 )
 
 # %%
+# check time diff
 
-# remove abnormal data
+def cal_time_diff(df):
+    """
+    Calculate time difference between rows, also consider noon break
+    """
+    df = df.copy()
+    df['time_diff'] = 0
 
+    # morning trading
+    trading_morning = (
+        (df.index.time >= datetime.strptime('09:31:00', '%H:%M:%S').time()) 
+        & (df.index.time <= datetime.strptime('12:00:00', '%H:%M:%S').time())
+    )
+    df.loc[trading_morning, 'time_diff'] = df[trading_morning].index.to_series().diff().dt.total_seconds()
+    
+    # afternoon
+    trading_afternoon = (
+        (df.index.time >= datetime.strptime('13:01:00', '%H:%M:%S').time()) 
+        & (df.index.time <= datetime.strptime('16:00:00', '%H:%M:%S').time())
+    )
+    df.loc[trading_afternoon, 'time_diff'] = df[trading_afternoon].index.to_series().diff().dt.total_seconds()
+    
+    return df['time_diff']
 
-# %%
-
-# trading time msk
-trading_morning = (
-    (df.index.time >= datetime.strptime('09:31:00', '%H:%M:%S').time()) 
-    & (df.index.time <= datetime.strptime('12:00:00', '%H:%M:%S').time())
+quote_df['time_diff'] = cal_time_diff(quote_df)
+quote_df.plotDistrib(
+    'time_diff', bins=100,
 )
-trading_afternoon = (
-    (df.index.time >= datetime.strptime('13:01:00', '%H:%M:%S').time()) 
-    & (df.index.time <= datetime.strptime('16:00:00', '%H:%M:%S').time())
+print(quote_df['time_diff'].describe())
+# %%
+quote_df[quote_df['time_diff']>3]
+# %%
+trade_df['time_diff'] = cal_time_diff(trade_df)
+trade_df.plotDistrib(
+    'time_diff', bins=100,
 )
+print(trade_df['time_diff'].describe())
 
-df[trading_morning].index.to_series().diff().dt.total_seconds()
-
-# trade_df['time_diff'] = trade_df.index.to_series().diff().dt.total_seconds()
-
-
-# %%
-trade_df.tplot('datetime', 'time_diff')
-# %%
-trade_df.hplot('time_diff')
-
-# %%
-trade_df.plotDistrib('time_diff', bins=100)
 # %%
