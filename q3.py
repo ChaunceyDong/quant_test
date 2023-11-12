@@ -1,7 +1,7 @@
 from scraper import TreasuryDataScraper
 from db_manager import TreasuryDatabaseManager
 
-if __name__ == '__main__':
+def daily_example():
     # scrape data
     scraper = TreasuryDataScraper()
     df_bills = scraper.get_df_bills()
@@ -36,3 +36,6 @@ if __name__ == '__main__':
 
     # close database
     db_manager.close()
+
+if __name__ == '__main__':
+    daily_example()
