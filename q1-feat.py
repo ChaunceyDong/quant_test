@@ -79,6 +79,5 @@ liquidity_agg = quote_df.resample('5T').agg({
 
 # Combine all data
 final_aggregated_data = pd.concat([trade_agg, quote_agg, liquidity_agg], axis=1)
-
 final_aggregated_data.to_csv('output/aggregated_data.csv')
 # %%
