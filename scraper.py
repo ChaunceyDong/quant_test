@@ -111,9 +111,9 @@ class TreasuryDataScraper:
     def close_driver(self):
         self.driver.close()
 
+if __name__ == '__main__':
+    # Usage example:
+    scraper = TreasuryDataScraper()
+    df_bills = scraper.get_df_bills()
 
-# Usage example:
-scraper = TreasuryDataScraper()
-df_bills = scraper.get_df_bills()
-
-scraper.close_driver()
+    scraper.close_driver()
