@@ -11,6 +11,14 @@ for this question, I split into 2 parts: check data quality and aggregate data
 In this notebook. I merged quote and trades, and found out spikes inside the trade price.
 Also checked the time diff of quote&trade updates, to check if any missing data.
 
+-  First Look
+![first look](plots/first look.png)
+- Time diff to check missing data
+![quote_time_gap.png](plots/quote_time_gap.png)
+- Problem: wrong bbo price when trade price spike
+![px_spike2](plots/px_spike2.png)
+![px_spike1](plots/px_spike1.png)
+
 ### add feats
 > see [q1-feat.ipynb](q1-feat.ipynb)
 
